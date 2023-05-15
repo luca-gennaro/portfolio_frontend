@@ -107,4 +107,4 @@ const Work = () => {
   )
 }
 
-export default AppWrap(MotionWrap(Work, 'app__works'), 'work', 'app__primarybg')
+export default AppWrap(MotionWrap(Work, 'app__works'), 'portfolio', 'app__primarybg')
