@@ -1,12 +1,17 @@
 import React, { useState } from 'react'
 import { HiMenuAlt4, HiX } from 'react-icons/hi'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 
 import './Navbar.scss'
 import { images } from '../../constants'
 
 const Navbar = () => {
+
   const [toggle, setToggle] = useState(false)
+
+  const handleMenuToggle = () => {
+    setToggle(!toggle)
+  }
   return (
     <nav className='app__navbar'>
       <div className='app__navbar-logo'>
@@ -22,24 +27,27 @@ const Navbar = () => {
       </ul>
 
       <div className='app__navbar-menu'>
-        <HiMenuAlt4 onClick={() => setToggle(true)} />
+        <HiMenuAlt4 onClick={handleMenuToggle} />
 
-        {toggle && (
-          <motion.div
-            whileInView={{ x: [300, 0] }}
-            transition={{ duration: 0.85, ease: 'easeOut' }}
-          >
-            <HiX onClick={() => setToggle(false)} />
-            <ul>
-            {['home', 'about', 'portfolio', 'skills', 'contact'].map(item => (
-                <li key={item}>
-                  <a href={`#${item}`} onClick={() => setToggle(false)}>{item}</a>
-                </li>
-            ))}
-            </ul>
-          </motion.div>
-
-        )}
+          <AnimatePresence>
+            {toggle && (
+              <motion.div
+                initial={{ opacity: 0, x: 300 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 300 }}
+                transition={{ duration: 0.85, ease: 'easeOut' }}
+              >
+                <HiX onClick={handleMenuToggle} />
+                <ul>
+                  {['home', 'about', 'portfolio', 'skills', 'contact'].map(item => (
+                    <li key={item}>
+                      <a href={`#${item}`} onClick={handleMenuToggle}>{item}</a>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            )}
+          </AnimatePresence>
       </div>
     </nav>
   )
