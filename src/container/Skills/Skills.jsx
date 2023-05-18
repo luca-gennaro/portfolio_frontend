@@ -33,7 +33,7 @@ const Skills = () => {
 
       <div className='app__skills-container'>
         <motion.div className='app__skills-list'>
-          {skills?.map((skill) => (
+          {skills?.sort((x, y) => x.name.localeCompare(y.name)).map((skill) => (
             <motion.div
               whileInView={{ opacity: [0, 1] }}
               transition={{ duration: 0.5 }}
